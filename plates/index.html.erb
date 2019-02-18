@@ -1,0 +1,102 @@
+<h1>Plates</h1>
+
+<head>
+    <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PZH99SL');</script>
+<!-- End Google Tag Manager -->
+</head>
+
+<body>
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PZH99SL"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+    
+
+
+
+<div class= "download-edit">
+<p>
+  Download:
+  <%= link_to "CSV", injuries_path(format: "csv") %> |
+  <%= link_to "Excel", injuries_path(format: "xls") %>
+</p>
+</div>
+
+<%= form_tag injuries_path, :method => 'get' do %>
+<div class ="dropdown-edit">
+  <p>
+    
+    <% if params[:category] == 'date'%>
+        <%if params[:date] == nil %>
+        <div class ="dropdown-edit">
+            <%= select_date(search = Date.today) %>
+            
+        <%else%>
+            <%= select_date(search = Date.new(params[:date][:year].to_i,params[:date][:month].to_i,params[:date][:day].to_i)); %>
+        <%end%>
+    <%else%>
+    
+        <%= text_field_tag :search, params[:search] %>
+        </div>
+    <%end%>
+    <%= select_tag :category, options_for_select([['Leader','name'],['Plate Name','sport'],['Elements','part'],['Test Rating','injurytype'],['Date','date']], :selected => params[:category],), 
+           { onchange: "javascript: this.form.submit();", :include_blank => false, :class => "select_box"} %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+ 
+<% end %>
+
+<% if @injuries != nil %>
+<table class="injury-table">
+    <tr class="injury-row-header">
+        <th class= "injury-cell-header header-edit "><%= sort_link "date"%></th>
+        <th class= "injury-cell-header header-edit"><%= sort_link "sport","Plate Name"%></th>
+        <th class= "injury-cell-header header-edit"><%= sort_link "name", "Leader"%></th>
+        <th class= "injury-cell-header header-edit"><%= sort_link "part", "Elements"%></th>
+        <th class= "injury-cell-header header-edit"><%= sort_link "injurytype", "Test Rating"%></th>
+        <th class= "injury-cell-header header-edit"><%= sort_link "returned", "Testable?"%></th>
+        
+        <th class= "injury-cell-header header-edit">File Attached?</th>
+        
+    </tr>
+    
+    <% @injuries.each do |injury| %>
+        <% @injurylinkpath = "/injuries/" + injury.id.to_s %>
+        <tr class="injury-row" data-href= "<%= @injurylinkpath %>">
+        <td class="injury-cell"><%=injury.date%></td>
+        <td class="injury-cell"><%= injury.sport%></td>
+        <td class="injury-cell"><%= injury.name%></td>
+        <td class="injury-cell"><%= injury.part%></td>
+        <td class="injury-cell"><%= injury.injurytype%></td>
+        <% if injury.returned == "true"%>
+        <td class="injury-cell">
+            Yes
+        </td>
+        <%else%>
+        <td class="injury-cell">
+            No
+        </td>
+        <%end%>
+        <% if injury.attachment.attached? == true%>
+        <td class="injury-cell">
+            Yes
+        </td>
+        <%else%>
+        <td class="injury-cell">
+            No
+        </td>
+        <%end%>
+        </tr>
+    
+    <% end %>
+<% else %>
+    <h3>No matching results found!</h3>
+<% end %>   
+</table>
+
+</body>

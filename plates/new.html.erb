@@ -1,0 +1,119 @@
+<h1>New Plate</h1>
+<%= form_for :injury, url: injuries_path do |f| %>
+    <% if @injury.errors.any? %>
+        <% @injury.errors.full_messages.each do |msg| %>
+            <div class="alert alert-danger"><%= msg %></div>
+        <% end%>
+    <% end %>
+    <h3>Plate Report</h3>
+    <p class="required_field"><b>Required Field Looks Like This*</b></p>
+    <p>
+        <%= f.label :sport, "Plate Name*", {:class => 'required_field'}%><br>
+        <%= f.text_field(:sport, {:class => 'form_control'})%>
+    </p>
+    
+    <p>
+        <%= f.label :name, "Leader*", {:class => 'required_field'} %><br>
+        <%= f.text_field(:name, {:class => 'form_control'}) %>
+    </p>
+    
+    <p>
+        <%= f.label :exposure, "Drying?" %><br>
+        <%= f.text_field(:exposure, {:class => 'form_control'}) %>
+    </p>
+    
+    <p>
+        <%= f.label :date %><br>
+        <div class ="dropdown-edit">
+        <%= f.date_select(:date, {:class => 'form_control'}) %>
+        </div>
+    </p>
+    
+    
+    
+    <p>
+        
+        <%= f.label :reportnotes, "General Notes" %><br>
+        <div class = "black">
+        <%= f.text_area(:reportnotes, {:class => 'form_control'}) %>
+        </div>
+    </p><br>
+    <h3>Materials/Testing</h3>
+    <br>
+    <p>
+
+    
+    <p>
+        <%= f.label :part, "Elements*", {:class => 'required_field'} %><br>
+        <%= f.text_field(:part, {:class => 'form_control'}) %>
+    </p>
+    
+    <p>
+        <%= f.label :injurytype, "Test Rating*", {:class => 'required_field'} %><br>
+        <%= f.text_field(:injurytype, {:class => 'form_control'}) %>
+    </p>
+    
+    <p>
+       
+        <%= f.label :symptoms, "Applied Voltage: "%><br>
+         <div class = "black">
+        <%= f.text_area(:symptoms, {:class => 'form_control'}) %>
+        </div>
+    </p>
+    
+    <p>
+    
+        <%= f.label :injurynotes, "Testing Notes" %><br>
+            <div class = "black">
+        <%= f.text_area(:injurynotes, {:class => 'form_control'}) %>
+        </div>
+    </p><br>
+    <h3>Kiln </h3>
+    <br>
+    <p>
+        <%= f.label :immediatetreatment, "Kiln Temp:" %><br>
+        <%= f.text_field(:immediatetreatment, {:class => 'form_control'}) %>
+    </p>
+    
+    <p>
+        <%= f.label :returndate, "Kilned date" %><br>
+        <div class ="dropdown-edit">
+        <%= f.date_select(:returndate, {:class => 'form_control'}) %>
+        </div>
+    </p>
+    
+    <p>
+        <%= f.label :returned, "Testable?*", {:class => 'required_field'}%><br>
+       
+        
+        <%= f.radio_button(:returned, "true")%>
+        <%= f.label :returned, "Yes"%><br> 
+        
+        <%= f.radio_button(:returned, "false")%>
+        <%= f.label :returned, "No"%>
+    </p>
+    
+    <p>
+        
+        <%= f.label :treatmentnotes, "Kiln Notes" %><br>
+        <div class = "black">
+        <%= f.text_area(:treatmentnotes, {:class => 'form_control'}) %>
+        </div>
+    </p>
+    
+    <p>
+        <div class= "injury_attachment">
+        <%= f.label :attachment %>
+        </div>
+        <div class ="file_input">
+        <%= f.file_field :attachment %> 
+        
+        </div>
+    </p><br>
+    
+    <p>
+        <%= f.submit "Save Plate", ({:class => 'btn btn-primary'}) %>
+    </p>
+    
+     
+<% end %>
