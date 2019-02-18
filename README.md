@@ -9,3 +9,6 @@ place the plates in a kiln, and run a current through an attached wire.
 Plates with successful transition metal catalysts will release electrons through hydrolysis, which the SEAL program will capture.
 
 This app is for high school students to record and sort their data.
+
+
+Used: SQLite, AWS storage systems, HTML/CSS, Ruby on Rails
